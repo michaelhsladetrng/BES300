@@ -31,6 +31,9 @@ namespace ShoppingApi.Migrations
                     b.Property<bool>("Purchased")
                         .HasColumnType("bit");
 
+                    b.Property<string>("PurchasedFrom")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("ShoppingItems");

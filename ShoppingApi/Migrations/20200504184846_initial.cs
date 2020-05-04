@@ -13,7 +13,8 @@ namespace ShoppingApi.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(nullable: true),
-                    Purchased = table.Column<bool>(nullable: false)
+                    Purchased = table.Column<bool>(nullable: false),
+                    PurchasedFrom = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
