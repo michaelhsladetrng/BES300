@@ -20,13 +20,12 @@ namespace ShoppingApi
             CreateMap<CreateCurbsideOrder, OrderForCurbside>()
                 .ForMember(dest => dest.Items, opt => opt.MapFrom(src => string.Join(",", src.Items))); // Will this work? No.
 
-            CreateMap<OrderForCurbside, CurbsideOrder>()
-                .ForMember(dest => dest.Items, opt => opt.Ignore());
+            //CreateMap<OrderForCurbside, CurbsideOrder>()
+            //    .ForMember(dest => dest.Items, opt => opt.Ignore());
 
-            /* 
-             * CreateMap<OrderForCurbside, CurbsideOrder>()
-                .ForMember(dest => dest.Item, opt => opt.MapFrom(src => src.Item.Split(',', StringSplitOptions.None).ToList()));
-             */
+            CreateMap<OrderForCurbside, CurbsideOrder>()
+               .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items.Split(',', StringSplitOptions.None).ToList()));
+
         }
     }
 }
