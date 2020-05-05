@@ -14,6 +14,7 @@ namespace ShoppingApi
     {
         public static void Main(string[] args)
         {
+            // Fluent interfaces.
             CreateHostBuilder(args).Build().MigrateDatabase<ShoppingDataContext>().Run();
         }
 

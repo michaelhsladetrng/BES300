@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace ShoppingApi.Models
 {
-
     public class GetShoppingListResponse
     {
         public List<ShoppingListItemResponse> Data { get; set; }
