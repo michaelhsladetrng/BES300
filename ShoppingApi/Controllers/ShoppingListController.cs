@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppingApi.Data;
 using ShoppingApi.Models;
@@ -12,10 +14,14 @@ namespace ShoppingApi.Controllers
     public class ShoppingListController : ControllerBase
     {
         private readonly ShoppingDataContext DataContext;
+        private readonly IMapper Mapper;
+        private readonly MapperConfiguration MapperConfig;
 
-        public ShoppingListController(ShoppingDataContext dataContext)
+        public ShoppingListController(ShoppingDataContext dataContext, IMapper mapper, MapperConfiguration mapperConfig)
         {
             DataContext = dataContext;
+            Mapper = mapper;
+            MapperConfig = mapperConfig;
         }
 
         [HttpGet("shoppinglist")]
@@ -24,12 +30,15 @@ namespace ShoppingApi.Controllers
             var response = new GetShoppingListResponse();
 
             response.Data = await DataContext.ShoppingItems
-                .Select(item => new ShoppingListItemResponse
-                {
-                    Id = item.Id,
-                    Description = item.Description,
-                    Purchased = item.Purchased
-                }).ToListAsync();
+                .ProjectTo<ShoppingListItemResponse>(MapperConfig).ToListAsync();
+                //.Select(item => Mapper.Map<ShoppingListItemResponse>(item)).ToListAsync();
+
+                //.Select(item => new ShoppingListItemResponse
+                //{
+                //    Id = item.Id,
+                //    Description = item.Description,
+                //    Purchased = item.Purchased
+                //}).ToListAsync();
 
             return Ok(response);
         }
